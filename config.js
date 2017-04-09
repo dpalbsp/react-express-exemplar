@@ -3,14 +3,18 @@
  */
 const env = process.env;
 
-export const nodeEnv = env.NODE_ENV || "Development";
+export const nodeEnv = env.NODE_ENV || 'Development';
 
 export const logMessage = (message) => {
-  console.info("*****************");
+  console.info('*****************');
   console.info(message);
-  console.info("*****************");
+  console.info('*****************');
 };
 
 export default {
-    port: env.PORT || 8080
+  port: env.PORT || 8080,
+  host: env.HOST || 'localhost',
+  get serverUrl() {
+    return `http://${this.host}:${this.port}`;
+  }
 };

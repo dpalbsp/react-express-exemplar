@@ -1,10 +1,10 @@
 /**
  * Created by Tia on 4/6/2017.
  */
-import React from "react";
-import Header from "./Header";
-import ContestPreview from "./ContestPreview";
-import axios from "axios";
+import React from 'react';
+import Header from './Header';
+import ContestPreview from './ContestPreview';
+import axios from 'axios';
 
 // const App = () => {
 //     return(
@@ -16,28 +16,28 @@ import axios from "axios";
 // };
 
 class App extends React.Component {
-    state = {
-        headerMessage: "Message Component with State",
-        contests: []
-    };
-    componentDidMount() {
-        setTimeout(() => {
-            axios.get("/api/contests")
+  state = {
+    headerMessage: 'Message Component with State',
+    contests: this.props.initialContests
+  };
+  componentDidMount() {
+    setTimeout(() => {
+      axios.get('/api/contests')
              .then(resp => {
-                 this.setState({contests: resp.data.contests});
+               this.setState({contests: resp.data.contests});
              })
              .catch(console.error);
-        }, 4000);
-    };
-    render() {
-        return (
+    }, 4000);
+  }
+  render() {
+    return (
             <div style={{textAlign: 'center'}}>
                 <Header message={this.state.headerMessage}/>
                 <div>
                     {this.state.contests.map(contest => <ContestPreview key={contest.id} {...contest}/>)}
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 export default App;
