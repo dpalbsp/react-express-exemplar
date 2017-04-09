@@ -29,9 +29,10 @@ server.set('view engine', 'ejs');
 server.get('/', (req, res) => {
     // res.send("Hello from Express!");
   serverRender()
-        .then(content => {
+        .then(({initialMarkup, initialData}) => {
           res.render('index', {
-            content
+            initialMarkup,
+            initialData
           });
         })
         .catch(console.error);

@@ -4,7 +4,7 @@
 import React from 'react';
 import Header from './Header';
 import ContestPreview from './ContestPreview';
-import axios from 'axios';
+// import axios from 'axios';
 
 // const App = () => {
 //     return(
@@ -21,13 +21,13 @@ class App extends React.Component {
     contests: this.props.initialContests
   };
   componentDidMount() {
-    setTimeout(() => {
-      axios.get('/api/contests')
-             .then(resp => {
-               this.setState({contests: resp.data.contests});
-             })
-             .catch(console.error);
-    }, 4000);
+    // setTimeout(() => {
+    //   axios.get('/api/contests')
+    //          .then(resp => {
+    //            this.setState({contests: resp.data.contests});
+    //          })
+    //          .catch(console.error);
+    // }, 4000);
   }
   render() {
     return (
