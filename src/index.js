@@ -8,6 +8,6 @@ import App from './components/App';
 //console.log(data);
 
 ReactDOM.render(
-    <App initialContests= {window.initialData.contests} />,
+    <App initialContests = {window.initialData.contests} />,
     document.getElementById('root')
 );
