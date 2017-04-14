@@ -5,36 +5,28 @@ import React from 'react';
 import Header from './Header';
 import ContestList from './ContestList';
 
-// import axios from 'axios';
-
-// const App = () => {
-//     return(
-//         <div>
-//             <Header message="React App"/>
-//             <div>...</div>
-//         </div>
-//     );
-// };
+const pushState = (obj, url) =>
+    window.history.pushState(obj, '', url);
 
 class App extends React.Component {
   state = {
     headerMessage: 'Message Component with State',
     contests: this.props.initialContests
   };
+  fetchState = (contestId) => {
+    pushState(
+        {originalContestId: contestId},
+        `/contest/${contestId}`
+    );
+  };
   componentDidMount() {
-    // setTimeout(() => {
-    //   axios.get('/api/contests')
-    //          .then(resp => {
-    //            this.setState({contests: resp.data.contests});
-    //          })
-    //          .catch(console.error);
-    // }, 4000);
+
   }
   render() {
     return (
             <div style={{textAlign: 'center'}}>
                 <Header message={this.state.headerMessage}/>
-                <ContestList contests={this.state.contests}/>
+                <ContestList contests={this.state.contests} onContestClick={this.fetchState} />
             </div>
     );
   }

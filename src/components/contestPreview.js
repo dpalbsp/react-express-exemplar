@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 
 class ContestPreview extends Component {
   handleClick = () => {
+    this.props.onClick(this.props.id);
     console.log(this.props.contestName);
   };
   render(){
