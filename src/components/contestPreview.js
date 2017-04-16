@@ -1,7 +1,7 @@
 /**
  * Created by Tia on 4/6/2017.
  */
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 class ContestPreview extends Component {
   handleClick = () => {
@@ -21,4 +21,12 @@ class ContestPreview extends Component {
     );
   }
 }
+
+ContestPreview.propTypes = {
+  id: PropTypes.number,
+  categoryName: PropTypes.string,
+  contestName: PropTypes.string,
+  onClick: PropTypes.func
+};
+
 export default ContestPreview;

@@ -2,6 +2,7 @@
  * Created by Tia on 4/6/2017.
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from './Header';
 import ContestList from './ContestList';
 
@@ -31,4 +32,9 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  initialContests: PropTypes.object
+};
+
 export default App;
