@@ -5,6 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import ContestList from './ContestList';
+import Contest from './Contest';
 
 const pushState = (obj, url) =>
     window.history.pushState(obj, '', url);
@@ -14,11 +15,21 @@ class App extends React.Component {
     headerMessage: 'Message Component with State',
     contests: this.props.initialContests
   };
-  fetchState = (contestId) => {
+  fetchContest = (contestId) => {
     pushState(
         {originalContestId: contestId},
         `/contest/${contestId}`
     );
+    this.setState({
+      headerMessage: this.state.contests[contestId].contestName,
+      currentContestId: contestId
+    });
+  };
+  currentContent = () => {
+    if (this.state.currentContestId){
+      return <Contest {...this.state.contests[this.state.currentContestId]}/>;
+    }
+    return <ContestList contests={this.state.contests} onContestClick={this.fetchContest} />;
   };
   componentDidMount() {
 
@@ -27,7 +38,7 @@ class App extends React.Component {
     return (
             <div style={{textAlign: 'center'}}>
                 <Header message={this.state.headerMessage}/>
-                <ContestList contests={this.state.contests} onContestClick={this.fetchState} />
+                {this.currentContent()}
             </div>
     );
   }

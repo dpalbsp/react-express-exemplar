@@ -1,8 +1,8 @@
 /**
  * Created by Tia on 4/10/2017.
  */
-import React, {PropTypes} from 'react';
-
+import React from 'react';
+import PropTypes from 'prop-types';
 import ContestPreview from './contestPreview';
 
 const ContestList = ({contests, onContestClick}) => {
