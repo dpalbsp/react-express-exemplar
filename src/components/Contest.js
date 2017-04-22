@@ -8,13 +8,13 @@ class Contest extends Component {
   render() {
     return(
             <div>
-                {this.props.id}
+                {this.props.description}
             </div>
     );
   }
 }
 
 Contest.propTypes = {
-  id: PropTypes.number.isRequired
+  description: PropTypes.string.isRequired
 };
 export default Contest;
