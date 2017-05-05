@@ -8,9 +8,9 @@ import serverRender from './serverRender';
 
 const server = express();
 
-//console.log(config, nodeEnv);
-
-//logMessage("Hello function");
+// console.log(config, nodeEnv);
+logMessage(nodeEnv);
+logMessage('Hello function');
 
 /*const server = http.createServer((req, res) => {
     res.write("Hello HTTP!\n");
@@ -26,9 +26,9 @@ server.use(sassMiddleware({
 }));
 server.set('view engine', 'ejs');
 
-server.get('/', (req, res) => {
+server.get(['/', '/contest/:contestId'], (req, res) => {
     // res.send("Hello from Express!");
-  serverRender()
+  serverRender(req.param.contestId)
         .then(({initialMarkup, initialData}) => {
           res.render('index', {
             initialMarkup,

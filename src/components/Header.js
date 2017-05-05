@@ -2,6 +2,7 @@
  * Created by Tia on 4/6/2017.
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Header = ({message}) => {
   return (
@@ -9,8 +10,8 @@ const Header = ({message}) => {
   );
 };
 
-// Header.propTypes = {
-//     message: React.PropTypes.string.isRequired
-// };
+Header.propTypes = {
+  message: PropTypes.string.isRequired
+};
 
 export default Header;

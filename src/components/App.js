@@ -1,5 +1,5 @@
 /**
- * Created by Tia on 4/6/2017.
+ * Created by Tia on 4/6/2017. This is the top level Component
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -12,9 +12,8 @@ const pushState = (obj, url) =>
     window.history.pushState(obj, '', url);
 
 class App extends React.Component {
-  state = {
-    contests: this.props.initialContests
-  };
+  static propTypes = {initialData: PropTypes.object.isRequired};
+  state = this.props.initialData;
   fetchContest = (contestId) => {
     pushState(
         {originalContestId: contestId},
@@ -58,9 +57,5 @@ class App extends React.Component {
     );
   }
 }
-
-App.propTypes = {
-  initialContests: PropTypes.object
-};
 
 export default App;
