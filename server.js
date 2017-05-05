@@ -28,7 +28,8 @@ server.set('view engine', 'ejs');
 
 server.get(['/', '/contest/:contestId'], (req, res) => {
     // res.send("Hello from Express!");
-  serverRender(req.param.contestId)
+    
+  serverRender(req.params.contestId)
         .then(({initialMarkup, initialData}) => {
           res.render('index', {
             initialMarkup,
