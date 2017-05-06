@@ -20,28 +20,43 @@ class App extends React.Component {
         `/contest/${contestId}`
     );
     api.fetchContest(contestId)
-        .then(contest => {
-          this.setState({
-            currentContestId: contest.id,
-            contests: {
-              ...this.state.contests,
-              [contest.id]: contest
-            }
-          });
+      .then(contest => {
+        this.setState({
+          currentContestId: contest.id,
+          contests: {
+            ...this.state.contests,
+            [contest.id]: contest
+          }
         });
+      });
+  };
+  fetchContestList = () => {
+    pushState(
+        {originalContestId: null},
+        '/'
+    );
+    api.fetchContestList()
+      .then(contests => {
+        this.setState({
+          currentContestId: null,
+          contests
+        });
+      });
   };
   currentContest() {
     return this.state.contests[this.state.currentContestId];
   }
   pageHeader() {
-    if (this.state.currentContestId){
+    if (this.state.currentContestId) {
       return this.currentContest().contestName;
     }
     return 'Naming Contests';
   }
   currentContent() {
-    if (this.state.currentContestId){
-      return <Contest {...this.currentContest()}/>;
+    if (this.state.currentContestId) {
+      return <Contest
+              contestListClick={this.fetchContestList}
+              {...this.currentContest()}/>;
     }
     return <ContestList contests={this.state.contests} onContestClick={this.fetchContest} />;
   }
@@ -50,10 +65,10 @@ class App extends React.Component {
   }
   render() {
     return (
-            <div style={{textAlign: 'center'}}>
-                <Header message={this.pageHeader()}/>
-                {this.currentContent()}
-            </div>
+      <div style={{textAlign: 'center'}}>
+          <Header message={this.pageHeader()}/>
+          {this.currentContent()}
+      </div>
     );
   }
 }

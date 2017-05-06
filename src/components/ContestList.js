@@ -18,7 +18,7 @@ const ContestList = ({contests, onContestClick}) => {
 
 ContestList.propTypes = {
   contests: PropTypes.object,
-  onContestClick: PropTypes.func
+  onContestClick: PropTypes.func.isRequired
 };
 
 export default ContestList;
