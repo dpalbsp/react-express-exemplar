@@ -7,12 +7,12 @@ import ContestPreview from './contestPreview';
 
 const ContestList = ({contests, onContestClick}) => {
   return (
-        <div>
-            {Object.keys(contests).map(contestId => <ContestPreview
-                key={contestId}
-                onClick={onContestClick}
-                {...contests[contestId]} />)}
-        </div>
+    <div className="ContestList">
+      {Object.keys(contests).map(contestId => <ContestPreview
+          key={contestId}
+          onClick={onContestClick}
+          {...contests[contestId]} />)}
+    </div>
   );
 };
 
