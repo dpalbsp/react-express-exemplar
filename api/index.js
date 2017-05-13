@@ -2,7 +2,7 @@
  * Created by Tia on 4/2/2017. This has the api methods
  */
 import express from 'express';
-import { MongoClient } from 'mongodb';
+import MongoClient from 'mongodb';
 import assert from 'assert';
 import config from '../config';
 // import data from '../src/testData.json';
