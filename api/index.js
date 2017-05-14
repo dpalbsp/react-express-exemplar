@@ -43,10 +43,25 @@ router.get('/contests/:contestId', (req, res) => {
   // currentContest.description = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam officiis, ex molestias perferendis rem quasi vitae ad et illum eos officia praesentium alias veniam harum aliquam ipsa ducimus voluptate iure!ipsum';
   // res.send(currentContest);
   mdb.collection('contests')
-  .findOne({ id: Number(req.params.contestId) })
-  .then((contest) => {
-    res.send(contest);
-  })
-  .catch(console.error);
+    .findOne({ id: Number(req.params.contestId) })
+    .then((contest) => {
+      res.send(contest);
+    })
+    .catch(console.error);
 });
+
+router.get('/names/:nameIds', (req, res) => {
+  const nameIds = req.params.nameIds.split(',').map(Number);
+  let names = {};
+  mdb.collection('names').find({ id: {$in: nameIds}})
+    .each((err, name) => {
+      assert.equal(null, err);
+      if (!name) {
+        res.send({ names });
+        return;
+      }
+      names[name.id] = name;
+    });
+});
+
 export default router;
