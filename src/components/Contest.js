@@ -5,6 +5,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Contest extends Component {
+  handleSubmit= (event) => {
+    event.preventDefault();
+    console.log('handleSubmit clicked...');
+  }
   componentDidMount() {
     this.props.fetchNames(this.props.nameIds);
   }
@@ -37,7 +41,24 @@ class Contest extends Component {
             </ul>
           </div>
         </div>
-
+        <div className='panel panel-info'>
+          <div className='panel-heading'>
+            <h3 className='panel-title'>Propose a New Name</h3>
+          </div>
+          <div className='panel-body'>
+            <form onSubmit={this.handleSubmit}>
+              <div className='input-group'>
+                <input type='text'
+                  placeholder='New Name Here...'
+                  ref='refNewName'
+                  className='form-control' />
+                <span className='input-group-btn'>
+                  <button type='submit' className='btn btn-info'>Submit</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
         <div className='home-link link'
           onClick={this.props.contestListClick}>
           Contest List
