@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 class ContestPreview extends Component {
   handleClick = () => {
-    this.props.onClick(this.props.id);
+    this.props.onClick(this.props._id);
     // console.log(this.props.contestName);
   };
   render(){
@@ -24,10 +24,10 @@ class ContestPreview extends Component {
 }
 
 ContestPreview.propTypes = {
-  id: PropTypes.number,
-  categoryName: PropTypes.string,
-  contestName: PropTypes.string,
-  onClick: PropTypes.func
+  _id: PropTypes.string.isRequired,
+  categoryName: PropTypes.string.isRequired,
+  contestName: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default ContestPreview;

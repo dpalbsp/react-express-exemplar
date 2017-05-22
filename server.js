@@ -1,13 +1,14 @@
 import config, {nodeEnv, logMessage} from './config';
 // import http from "http";
 import express from 'express';
+import bodyParser from 'body-parser';
 import apiRouter from './api';
 import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
 import serverRender from './serverRender';
 
 const server = express();
-
+server.use(bodyParser.json());
 // console.log(config, nodeEnv);
 logMessage(nodeEnv);
 logMessage('Hello function');
@@ -28,7 +29,7 @@ server.set('view engine', 'ejs');
 
 server.get(['/', '/contest/:contestId'], (req, res) => {
     // res.send("Hello from Express!");
-    
+
   serverRender(req.params.contestId)
         .then(({initialMarkup, initialData}) => {
           res.render('index', {
@@ -36,7 +37,10 @@ server.get(['/', '/contest/:contestId'], (req, res) => {
             initialData
           });
         })
-        .catch(console.error);
+        .catch(error => {
+          console.error(error);
+          res.status(404).send('Bad request');
+        });
 });
 
 server.use('/api', apiRouter);

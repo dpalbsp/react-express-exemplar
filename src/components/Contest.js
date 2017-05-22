@@ -5,9 +5,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Contest extends Component {
-  handleSubmit= (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
-    console.log('handleSubmit clicked...');
+    // console.log(this.newNameInput.value);
+    this.props.addName(this.newNameInput.value, this.props._id);
+    this.newNameInput.value = '';
   }
   componentDidMount() {
     this.props.fetchNames(this.props.nameIds);
@@ -50,10 +52,12 @@ class Contest extends Component {
               <div className='input-group'>
                 <input type='text'
                   placeholder='New Name Here...'
-                  ref='refNewName'
-                  className='form-control' />
+                  ref={(input) => this.newNameInput = input}
+                  className='form-control' required />
                 <span className='input-group-btn'>
-                  <button type='submit' className='btn btn-info'>Submit</button>
+                  <button type='submit' className='btn btn-info'>
+                    Submit
+                  </button>
                 </span>
               </div>
             </form>
@@ -69,10 +73,13 @@ class Contest extends Component {
 }
 
 Contest.propTypes = {
+  _id: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   contestListClick: PropTypes.func.isRequired,
   nameIds: PropTypes.array.isRequired,
   fetchNames: PropTypes.func.isRequired,
-  lookupName: PropTypes.func.isRequired
+  lookupName: PropTypes.func.isRequired,
+  addName: PropTypes.func.isRequired
 };
+
 export default Contest;

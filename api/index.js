@@ -2,7 +2,7 @@
  * Created by Tia on 4/2/2017. This has the api methods
  */
 import express from 'express';
-import MongoClient from 'mongodb';
+import MongoClient, { ObjectID } from 'mongodb';
 import assert from 'assert';
 import config from '../config';
 // import data from '../src/testData.json';
@@ -24,7 +24,6 @@ router.get('/contests', (req, res) => {
   let contests = {};
   mdb.collection('contests').find({})
     .project({
-      id: 1,
       categoryName: 1,
       contestName: 1
     })
@@ -34,7 +33,7 @@ router.get('/contests', (req, res) => {
         res.send({ contests });
         return;
       }
-      contests[contest.id] = contest;
+      contests[contest._id] = contest;
     });
 });
 
@@ -43,7 +42,7 @@ router.get('/contests/:contestId', (req, res) => {
   // currentContest.description = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam officiis, ex molestias perferendis rem quasi vitae ad et illum eos officia praesentium alias veniam harum aliquam ipsa ducimus voluptate iure!ipsum';
   // res.send(currentContest);
   mdb.collection('contests')
-    .findOne({ id: Number(req.params.contestId) })
+    .findOne({ _id: ObjectID(req.params.contestId) })
     .then((contest) => {
       res.send(contest);
     })
@@ -51,17 +50,38 @@ router.get('/contests/:contestId', (req, res) => {
 });
 
 router.get('/names/:nameIds', (req, res) => {
-  const nameIds = req.params.nameIds.split(',').map(Number);
+  const nameIds = req.params.nameIds.split(',').map(ObjectID);
   let names = {};
-  mdb.collection('names').find({ id: {$in: nameIds}})
+  mdb.collection('names').find({ _id: {$in: nameIds}})
     .each((err, name) => {
       assert.equal(null, err);
       if (!name) {
         res.send({ names });
         return;
       }
-      names[name.id] = name;
+      names[name._id] = name;
     });
+});
+
+router.post('/names', (req, res) => {
+  const name = req.body.newName;
+  const contestId = ObjectID(req.body.contestId);
+  mdb.collection('names').insertOne({ name }).then(result => {
+    mdb.collection('contests').findOneAndUpdate(
+      { _id: contestId},
+      { $push: { nameIds: result.insertedId }},
+      { returnOriginal: false }
+    ).then(doc => {
+      res.send({
+        updatedContest: doc.value,
+        newName: { _id: result.insertedId, name }
+      });
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(404).send('Bad request');
+    });
+  });
 });
 
 export default router;
