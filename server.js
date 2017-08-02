@@ -3,8 +3,8 @@ import config, {nodeEnv, logMessage} from './config';
 import express from 'express';
 import bodyParser from 'body-parser';
 import apiRouter from './api';
-import sassMiddleware from 'node-sass-middleware';
-import path from 'path';
+// import sassMiddleware from 'node-sass-middleware';
+// import path from 'path';
 import serverRender from './serverRender';
 
 const server = express();
@@ -21,10 +21,10 @@ logMessage('Hello function');
     }, 3000);
 });*/
 
-server.use(sassMiddleware({
-  src: path.join(__dirname, 'sass'),
-  dest: path.join(__dirname, 'public')
-}));
+// server.use(sassMiddleware({
+//   src: path.join(__dirname, 'sass'),
+//   dest: path.join(__dirname, 'public')
+// }));
 server.set('view engine', 'ejs');
 
 server.get(['/', '/contest/:contestId'], (req, res) => {
