@@ -77,10 +77,10 @@ router.post('/names', (req, res) => {
         newName: { _id: result.insertedId, name }
       });
     })
-    .catch(error => {
-      console.error(error);
-      res.status(404).send('Bad request');
-    });
+      .catch(error => {
+        console.error(error);
+        res.status(404).send('Bad request');
+      });
   });
 });
 

@@ -9,9 +9,9 @@ const ContestList = ({contests, onContestClick}) => {
   return (
     <div className="ContestList">
       {Object.keys(contests).map(contestId => <ContestPreview
-          key={contestId}
-          onClick={onContestClick}
-          {...contests[contestId]} />)}
+        key={contestId}
+        onClick={onContestClick}
+        {...contests[contestId]} />)}
     </div>
   );
 };

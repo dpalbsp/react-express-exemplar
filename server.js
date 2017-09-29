@@ -28,19 +28,19 @@ logMessage('Hello function');
 server.set('view engine', 'ejs');
 
 server.get(['/', '/contest/:contestId'], (req, res) => {
-    // res.send("Hello from Express!");
+  // res.send("Hello from Express!");
 
   serverRender(req.params.contestId)
-        .then(({initialMarkup, initialData}) => {
-          res.render('index', {
-            initialMarkup,
-            initialData
-          });
-        })
-        .catch(error => {
-          console.error(error);
-          res.status(404).send('Bad request');
-        });
+    .then(({initialMarkup, initialData}) => {
+      res.render('index', {
+        initialMarkup,
+        initialData
+      });
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(404).send('Bad request');
+    });
 });
 
 server.use('/api', apiRouter);
