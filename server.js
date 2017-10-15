@@ -22,7 +22,7 @@ logMessage('Hello function');
 });*/
 
 server.use(sassMiddleware({
-  src: path.join(__dirname, 'sass'),
+  src: path.join(__dirname, 'scss'),
   dest: path.join(__dirname, 'public')
 }));
 server.set('view engine', 'ejs');
