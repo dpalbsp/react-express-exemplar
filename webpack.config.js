@@ -13,7 +13,12 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.(s*)css$/,
+        loader: 'style-loader!css-loader!sass-loader'
       }
+
     ]
   }
 };

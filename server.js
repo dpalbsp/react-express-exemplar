@@ -3,9 +3,9 @@ import config, {nodeEnv, logMessage} from './config';
 import express from 'express';
 import bodyParser from 'body-parser';
 import apiRouter from './api';
-import sassMiddleware from 'node-sass-middleware';
-import path from 'path';
+// import path from 'path';
 import serverRender from './serverRender';
+// import sassMiddleware from 'node-sass-middleware';
 
 const server = express();
 server.use(bodyParser.json());
@@ -21,10 +21,11 @@ logMessage('Hello function');
     }, 3000);
 });*/
 
-server.use(sassMiddleware({
-  src: path.join(__dirname, 'scss'),
-  dest: path.join(__dirname, 'public')
-}));
+// server.use(sassMiddleware({
+//   src: __dirname,
+//   dest: path.join(__dirname, 'public')
+// }));
+// server.use('/public', express.static(path.join(__dirname, 'public')));
 server.set('view engine', 'ejs');
 
 server.get(['/', '/contest/:contestId'], (req, res) => {
